@@ -1,0 +1,41 @@
+{
+  "name": "testyle",
+  "version": "0.1.0",
+  "author": "Roman Komarov <kizmarh@ya.ru> (http://kizu.ru/en/)",
+  "licence": "MIT",
+  "description": "Some stuff for testing code in Stylus",
+  "keywords": [
+    "stylus",
+    "css",
+    "tests"
+  ],
+  "homepage": "https://github.com/kizu/testyle#readme",
+  "bugs": {
+    "url": "http://github.com/kizu/testyle/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kizu/testyle.git"
+  },
+  "dependencies": {
+    "autoprefixer": "2.1.x",
+    "csso": "1.3.x",
+    "csscomb": "3.0.x",
+    "glob": "3.2.x",
+    "mocha": "1.20.x",
+    "should": "2.0.x"
+  },
+  "devDependencies": {
+    "stylus": "0.47.3",
+  },
+  "main": "./testyle.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha ./testyle.js --require should --reporter list"
+  },
+  "config": {
+    "whatToTest": "**"
+  },
+  "engines": {
+    "node": ">=0.6"
+  }
+}
