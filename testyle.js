@@ -14,39 +14,47 @@ comb.configure(require('./.csscomb.json'));
 
 // test cases
 
-glob.sync("./lib/*/" + whatToTest + "/tests/*.styl").forEach(function(test){
-  var name = test.replace(/\.?[\/]/g, ' ').replace(' tests',':').replace('.styl','');
+var Testyle = function(config) {
+  var prefix = config && config.prefix || ''; // like `lib/*/`
+  var postfix = config && config.postfix || ''; // like `/tests/`
+  var stylusBefore = config && config.stylusBefore || ''; // like `@require "index.styl";`
 
-  it(name, function(){
-    var css = fs.readFileSync(test.replace('.styl', '.css'), 'utf8').replace(/\r/g, '').trim();
-    var style = stylus('@require "index.styl"; @require "' + test + '"');
+  glob.sync("./" + prefix + whatToTest + "*.styl").forEach(function(test){
+    var name = test.replace(/\.?[\/]/g, ' ').replace(' tests',':').replace('.styl','');
 
-    style.render(function(err, actual){
-      if (err) throw err;
-      // Change the order of csso and autoprefixer when
-      // we would able to set selector list code style
-      actual = csso.justDoIt(actual);
-      actual = autoprefixer.process(actual).css;
-      actual = comb.processString(actual);
+    it(name, function(){
+      var css = fs.readFileSync(test.replace('.styl', '.css'), 'utf8').replace(/\r/g, '').trim();
+      var style = stylus(stylusBefore + '@require "' + test + '"');
 
-      // Remove those hardfixes when there would be a way to do this in csscomb
-      actual = actual.replace(/\)(,?)([^:\)\s,;])/g,')$1 $2');
-      actual = actual.replace(/,sans-serif/g,', sans-serif');
-      actual = actual.replace(/([^ ])\}/g,'$1}\n\n');
-      actual = actual.replace(/,#/g,', #');
-      actual = actual.replace(/,red/g,', red');
-      actual = actual.replace(/,transparent/g,', transparent');
-      actual = actual.replace(/background: 0 0/g,'background: transparent');
-      actual = actual.replace(/font-weight: 700/g,'font-weight: bold');
-      actual = actual.replace(/([^ ])!important/g,'$1 !important');
-      actual = actual.replace(/inset,([^ ])/g,'inset, $1');
-      actual = actual.replace(/\)rgba/g,') rgba');
+      style.render(function(err, actual){
+        if (err) throw err;
+        // Change the order of csso and autoprefixer when
+        // we would able to set selector list code style
+        actual = csso.justDoIt(actual);
+        actual = autoprefixer.process(actual).css;
+        actual = comb.processString(actual);
 
-      // CSSO strips ie9 hack, should replace with smth else
-      actual = actual.replace(/color: #333 \\0\/;/g,'color: transparent;\n  color: #333 \\0/;');
+        // Remove those hardfixes when there would be a way to do this in csscomb
+        actual = actual.replace(/\)(,?)([^:\)\s,;])/g,')$1 $2');
+        actual = actual.replace(/,sans-serif/g,', sans-serif');
+        actual = actual.replace(/([^ ])\}/g,'$1}\n\n');
+        actual = actual.replace(/,#/g,', #');
+        actual = actual.replace(/,red/g,', red');
+        actual = actual.replace(/,transparent/g,', transparent');
+        actual = actual.replace(/background: 0 0/g,'background: transparent');
+        actual = actual.replace(/font-weight: 700/g,'font-weight: bold');
+        actual = actual.replace(/([^ ])!important/g,'$1 !important');
+        actual = actual.replace(/inset,([^ ])/g,'inset, $1');
+        actual = actual.replace(/\)rgba/g,') rgba');
 
-      actual.trim().should.equal(css);
-    });
-  })
-});
+        // CSSO strips ie9 hack, should replace with smth else
+        actual = actual.replace(/color: #333 \\0\/;/g,'color: transparent;\n  color: #333 \\0/;');
 
+        actual.trim().should.equal(css);
+      });
+    })
+  });
+
+};
+
+module.exports = Testyle;

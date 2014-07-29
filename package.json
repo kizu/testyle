@@ -26,11 +26,11 @@
     "should": "2.0.x"
   },
   "devDependencies": {
-    "stylus": "0.47.3",
+    "stylus": "0.47.3"
   },
   "main": "./testyle.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./testyle.js --require should --reporter list"
+    "test": "./node_modules/.bin/mocha ./tests/test.js --require should --reporter list"
   },
   "config": {
     "whatToTest": "**"
