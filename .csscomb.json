@@ -18,6 +18,7 @@
     "block-indent": "  ",
     "strip-spaces": true,
     "unitless-zero": true,
+    "join-similar-rules": true,
 
     "sort-order": [
         [

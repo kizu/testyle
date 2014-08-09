@@ -8,9 +8,9 @@
 }
 
 .whitespaces-in-values {
-  font-family: Helvetica,Arial, sans-serif !important;
+  font-family: Helvetica, Arial, sans-serif !important;
 
-  background: #FFF url("lol.png") 10px 20px, red, #FAFAFA;
+  background: #FFF url("lol.png") 10px 20px, #F00, #FAFAFA;
 }
 
 .complex-selector,
