@@ -1,0 +1,20 @@
+.double-selector {
+  width: 0;
+  height: 0;
+}
+
+.double-rules {
+  height: 20px;
+}
+
+.whitespaces-in-values {
+  font-family: Helvetica,Arial, sans-serif !important;
+
+  background: #FFF url("lol.png") 10px 20px, red, #FAFAFA;
+}
+
+.complex-selector,
+#id,
+td {
+  width: 10px;
+}
