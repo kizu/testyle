@@ -11,6 +11,7 @@
     "space-after-selector-delimiter": "\n",
     "space-between-declarations": "\n",
     "space-before-closing-brace": "\n",
+    "space-between-rulesets": "\n\n",
     "tab-size": "2",
     "color-case": "upper",
     "color-shorthand": true,
