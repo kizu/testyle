@@ -18,7 +18,7 @@
     "url": "git://github.com/kizu/testyle.git"
   },
   "dependencies": {
-    "autoprefixer": "2.1.x",
+    "autoprefixer": "2.2.x",
     "csscomb": "git://github.com/csscomb/csscomb.js.git#tg/210",
     "csscomb-join-similar-rules": "0.1.x",
     "glob": "3.2.x",
@@ -26,7 +26,7 @@
     "should": "2.0.x"
   },
   "devDependencies": {
-    "stylus": "0.47.3"
+    "stylus": "0.48.1"
   },
   "main": "./testyle.js",
   "scripts": {
