@@ -16,15 +16,23 @@ comb.configure(require('./.csscomb.json'));
 
 var Testyle = function(config) {
   var prefix = config && config.prefix || ''; // like `lib/*/`
-  var postfix = config && config.postfix || ''; // like `/tests/`
+  var postfix = config && config.postfix || ''; // like `tests/`
   var stylusBefore = config && config.stylusBefore || ''; // like `@require "index.styl";`
+  
+  var require = config && config.require || ''; // like `'./lib/index.styl'`
+  if (require instanceof Array) {
+    require = require.join('"\n@require "');
+  }
+  if (require !== '') {
+    require = '\n@require "' + require + '"\n';
+  }
 
-  glob.sync("./" + prefix + whatToTest + "*.styl").forEach(function(test){
+  glob.sync(prefix + whatToTest + postfix + "*.styl").forEach(function(test){
     var name = test.replace(/\.?[\/]/g, ' ').replace(' tests',':').replace('.styl','');
 
     it(name, function(){
       var css = fs.readFileSync(test.replace('.styl', '.css'), 'utf8').replace(/\r/g, '').trim();
-      var style = stylus(stylusBefore + '@require "' + test + '"');
+      var style = stylus(stylusBefore + require + '@require "' + test + '"');
 
       style.render(function(err, actual){
         if (err) throw err;
